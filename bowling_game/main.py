@@ -3,7 +3,7 @@ from game import Game
 
 def main():
     game = Game()
-    print(game.roll())
+    game.round()
 
 
 if __name__ == "__main__":
