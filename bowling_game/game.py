@@ -7,33 +7,39 @@ class Game:
     def score(self) -> dict:
         frame_count = 1
         while frame_count <= 10:
-            pins_count = 10
-            self.frame(frame_count, pins_count)
+            self.frame(frame_count)
             frame_count += 1
         return self.frames
 
-    def frame(self, frame_count: int, pins_count: int) -> int:
+    def frame(self, frame_count: int):
         round_count = 1
-        self.frames[f"frame_number_{frame_count}"] = {}
+        pins_left = 10
+        self.dict_builder(frame_count, {})
         while round_count <= 2:
-            pins_count = self.round(frame_count, round_count, pins_count)
+            pins_left = self.round(frame_count, round_count, pins_left)
             round_count += 1
-            self.is_strike_or_spare(round_count, pins_count)
-        return pins_count
+        else:
+            self.dict_builder(frame_count, {"score: ": 10 - pins_left})
 
-    def round(self, frame_count: int, round_count: int, pins_count: int) -> int:
-        roll_result = self.roll(pins_count)
-        self.frames[f"frame_number_{frame_count}"].update(
-            {f"roll_{round_count}": roll_result}
-        )
-        pins_count -= roll_result
-        return pins_count
+    def round(self, frame_count: int, round_count: int, pins_left: int) -> int:
+        pins_left = self.roll(pins_left, round_count, frame_count)
+        self.is_strike_or_spare(round_count, pins_left)
+        return pins_left
 
-    def roll(self, pins_count: int) -> int:
-        return random.randint(0, pins_count)
+    def roll(self, pins_left: int, round_count: int, frame_count: int) -> int:
+        roll_result = random.randint(0, pins_left)
+        self.dict_builder(frame_count, {f"roll_{round_count}": roll_result})
+        pins_left -= roll_result
+        return pins_left
 
-    def is_strike_or_spare(self, round_count, pins_count):
-        if round_count == 1 & pins_count == 0:
-            print("Strike")
-        elif round_count == 2 & pins_count == 0:
-            print("Spare")
+    def dict_builder(self, frame_count: int, payload: dict) -> None:
+        try:
+            self.frames[f"frame_number_{frame_count}"].update(payload)
+        except KeyError:
+            self.frames[f"frame_number_{frame_count}"] = payload
+
+    def is_strike_or_spare(self, round_count: int, pins_left: int):
+        if round_count == 1 & pins_left == 0:
+            return True
+        elif round_count == 2 & pins_left == 0:
+            return False

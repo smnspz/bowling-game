@@ -2,6 +2,13 @@ Bowling Game Kata
 ============
 Source: [https://github.com/ardalis/kata-catalog](https://github.com/ardalis/kata-catalog)
 
+
+# Setup #
+
+You need poetry in order to run this version of the kata.
+Follow these steps:
+1 - Run poetry install in the terminal
+
 # Background #
 
 A completed game of bowling consists of 10 frames. In each frame, the player has two opportunities to knock down 10 pins. The score for the frame is the total number of pins knocked down, plus bonuses for strikes and spares.
@@ -14,8 +21,8 @@ In the tenth frame, a player who rolls a spare or strike is allowed to roll the 
 
 # Instructions #
 - Write a class 'Game' with two methods
-- void Roll(int pins) is called each time the player rolls a ball. The argument is the number of pins knocked down.
-- int Score() is called only at the very end of the game. It returns the total score for that game. 
+- roll(pins: int) -> None is called each time the player rolls a ball. The argument is the number of pins knocked down.
+- score() -> int is called only at the very end of the game. It returns the total score for that game.
 
 # Resources #
 - [Walkthrough by Uncle Bob Martin](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata)
