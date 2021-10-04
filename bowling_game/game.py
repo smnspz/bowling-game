@@ -4,13 +4,13 @@ import random
 class Game:
     frames: dict = {}
 
-    def scoreboard_generator(self) -> None:
+    def score(self) -> dict:
         frame_count = 1
         while frame_count <= 10:
             pins_count = 10
             self.frame(frame_count, pins_count)
             frame_count += 1
-        self.score(self.frames)
+        return self.frames
 
     def frame(self, frame_count: int, pins_count: int) -> int:
         round_count = 1
@@ -30,6 +30,3 @@ class Game:
 
     def roll(self, pins_count: int) -> int:
         return random.randint(0, pins_count)
-
-    def score(self, frames):
-        print(frames)
