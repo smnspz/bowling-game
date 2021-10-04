@@ -18,6 +18,7 @@ class Game:
         while round_count <= 2:
             pins_count = self.round(frame_count, round_count, pins_count)
             round_count += 1
+            self.is_strike_or_spare(round_count, pins_count)
         return pins_count
 
     def round(self, frame_count: int, round_count: int, pins_count: int) -> int:
@@ -30,3 +31,9 @@ class Game:
 
     def roll(self, pins_count: int) -> int:
         return random.randint(0, pins_count)
+
+    def is_strike_or_spare(self, round_count, pins_count):
+        if round_count == 1 & pins_count == 0:
+            print("Strike")
+        elif round_count == 2 & pins_count == 0:
+            print("Spare")
