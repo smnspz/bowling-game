@@ -23,5 +23,4 @@ repos:
       entry: mypy
       language: python
       types: [python]
-      files: flipper
       args: ["--ignore-missing-imports"]
